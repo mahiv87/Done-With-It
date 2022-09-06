@@ -25,7 +25,8 @@ function ListItem({ title, subTitle, image, onPress, renderRightActions, IconCom
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		padding: 15
+		padding: 15,
+		backgroundColor: colors.white
 	},
 	detailsContainer: {
 		marginLeft: 10,
@@ -34,8 +35,7 @@ const styles = StyleSheet.create({
 	image: {
 		width: 70,
 		height: 70,
-		borderRadius: 35,
-		marginRight: 10
+		borderRadius: 35
 	},
 	subTitle: {
 		color: colors.medium
