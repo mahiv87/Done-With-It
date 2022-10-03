@@ -7,7 +7,7 @@ import ListItem from '../components/ListItem';
 import Icon from '../components/Icon';
 import ListItemSeparator from '../components/ListItemSeparator';
 
-function MyAccountScreen(props) {
+function AccountScreen(props) {
 	const menuItems = [
 		{
 			title: 'My Listings',
@@ -28,11 +28,7 @@ function MyAccountScreen(props) {
 	return (
 		<Screen style={styles.screen}>
 			<View style={styles.container}>
-				<ListItem
-					title={'Marcus Herrera'}
-					subTitle={'marcus.herrera@du.edu'}
-					image={require('../assets/me.png')}
-				/>
+				<ListItem title={'Marcus Herrera'} subTitle={'marcus.herrera@du.edu'} image={require('../assets/me.png')} />
 			</View>
 			<View style={styles.container}>
 				<FlatList
@@ -61,4 +57,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default MyAccountScreen;
+export default AccountScreen;
