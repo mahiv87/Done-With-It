@@ -3,9 +3,8 @@ import { FlatList, StyleSheet, View } from 'react-native';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
-import ListItem from '../components/ListItem';
+import { ListItem, ListItemSeparator } from '../components/lists';
 import Icon from '../components/Icon';
-import ListItemSeparator from '../components/ListItemSeparator';
 
 function AccountScreen(props) {
 	const menuItems = [
