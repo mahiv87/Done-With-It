@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import jwtDecode from 'jwt-decode';
 
 import Screen from './app/components/Screen';
 import AuthNavigator from './app/navigation/AuthNavigator';
@@ -11,6 +12,7 @@ import navigationTheme from './app/navigation/navigationTheme';
 import AppNavigator from './app/navigation/AppNavigator';
 import OfflineNotice from './app/components/OfflineNotice';
 import AuthContext from './app/auth/context';
+import authStorage from './app/auth/storage';
 
 const Link = () => {
 	const navigation = useNavigation();
@@ -77,6 +79,16 @@ const TabNavigator = () => (
 
 export default function App() {
 	const [user, setUser] = useState();
+
+	const restoreToken = async () => {
+		const token = await authStorage.getToken();
+		if (!token) return;
+		setUser(jwtDecode(token));
+	};
+
+	useEffect(() => {
+		restoreToken();
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{ user, setUser }}>
