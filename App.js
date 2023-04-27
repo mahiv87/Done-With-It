@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import jwtDecode from 'jwt-decode';
+import { AppLoading } from 'expo';
 
 import Screen from './app/components/Screen';
 import AuthNavigator from './app/navigation/AuthNavigator';
@@ -79,16 +79,17 @@ const TabNavigator = () => (
 
 export default function App() {
 	const [user, setUser] = useState();
+	const [isReady, setIsReady] = useState(false);
 
-	const restoreToken = async () => {
-		const token = await authStorage.getToken();
-		if (!token) return;
-		setUser(jwtDecode(token));
+	const restoreUser = async () => {
+		const user = await authStorage.getUser();
+		if (user) setUser(user);
 	};
 
-	useEffect(() => {
-		restoreToken();
-	}, []);
+	if (!isReady)
+		return (
+			<AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+		);
 
 	return (
 		<AuthContext.Provider value={{ user, setUser }}>
