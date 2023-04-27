@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +10,7 @@ import AuthNavigator from './app/navigation/AuthNavigator';
 import navigationTheme from './app/navigation/navigationTheme';
 import AppNavigator from './app/navigation/AppNavigator';
 import OfflineNotice from './app/components/OfflineNotice';
+import AuthContext from './app/auth/context';
 
 const Link = () => {
 	const navigation = useNavigation();
@@ -75,12 +76,14 @@ const TabNavigator = () => (
 );
 
 export default function App() {
+	const [user, setUser] = useState();
+
 	return (
-		<>
+		<AuthContext.Provider value={{ user, setUser }}>
 			<OfflineNotice />
 			<NavigationContainer theme={navigationTheme}>
-				<AppNavigator />
+				{user ? <AppNavigator /> : <AuthNavigator />}
 			</NavigationContainer>
-		</>
+		</AuthContext.Provider>
 	);
 }
