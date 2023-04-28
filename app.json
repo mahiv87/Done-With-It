@@ -18,6 +18,19 @@
 		"ios": {
 			"supportsTablet": true
 		},
-		"description": "A marketplace for selling the stuff you don't need anymore."
+		"description": "A marketplace for selling the stuff you don't need anymore.",
+		"extra": {
+			"bugsnag": {
+				"apiKey": "5a29f09b6444eb7e86d0a7ba2fab5594"
+			}
+		},
+		"hooks": {
+			"postPublish": [
+				{
+					"file": "@bugsnag/expo/hooks/post-publish.js",
+					"config": {}
+				}
+			]
+		}
 	}
 }
