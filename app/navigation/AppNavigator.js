@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
 
 import ListingsScreen from '../screens/ListingsScreen';
 import ListingEditScreen from '../screens/ListingEditScreen';
@@ -11,26 +9,12 @@ import FeedNavigator from './FeedNavigator';
 import AccountNavigator from './AccountNavigator';
 import NewListingButton from './NewListingButton';
 import routes from './routes';
-import expoPushTokensApi from '../api/expoPushTokens';
+import useNotifications from '../hooks/useNotifications';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-	useEffect(() => {
-		registerForPushNotifications();
-	}, []);
-
-	const registerForPushNotifications = async () => {
-		try {
-			const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-			if (!permission.granted) return;
-
-			const token = await Notifications.getExpoPushTokenAsync();
-			expoPushTokensApi.register(token);
-		} catch (error) {
-			console.log('Error getting the push token', error);
-		}
-	};
+	useNotifications();
 
 	return (
 		<Tab.Navigator>
